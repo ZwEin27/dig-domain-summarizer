@@ -51,7 +51,7 @@ class DomainSummarizer(object):
         self.init_domain_data(domain_name)
         with open(filepath, 'rb') as file_handler:
             for line in file_handler:
-                line = line.strip()
+                line = line.strip().encode('ascii', 'ignore')
                 self.update_domain_data(domain_name, line)
 
     def load_dir(self, dirpath):
