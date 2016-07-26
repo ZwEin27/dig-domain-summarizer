@@ -20,21 +20,21 @@ class DomainSummarizer(object):
     def __init__(self):
         self.summary = {}
 
-    def __init_domain_data(self, domain_name):
+    def init_domain_data(self, domain_name):
         domain = {}
         domain.setdefault(DS_DD_NAME, domain_name)
         domain.setdefault(DS_DD_SIZE, 0)
         domain.setdefault(DS_DD_FREQ, 0)
-        self.summary.setdefault(filename, {})
-
+        self.summary.setdefault(domain_name, domain)
 
     def load_jsonlines(self, filepath):
-        filename = filepath.split(os.path.sep)[-1]
-        
+        filename = '.'.join(filepath.split(os.path.sep)[-1].split('.')[:-1])
+        self.init_domain_data(filename)
         with open(filepath, 'rb') as file_handler:
             for line in file_handler:
                 line = line.strip()
                 self.summary[filename]
+
 
 
     def load_dir(self, dirpath):
@@ -51,6 +51,7 @@ class DomainSummarizer(object):
         paths = self.load_dir(dirpath)
         for path in paths:
             self.load_jsonlines(path)
+        print json.dumps(self.summary, indent=4)
 
 if __name__ == '__main__':
     ds = DomainSummarizer()
