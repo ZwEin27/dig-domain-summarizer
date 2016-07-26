@@ -64,7 +64,7 @@ class DomainSummarizer(object):
                 paths.append(path)
         return paths
 
-    def run(self, dirpath):
+    def run(self, dirpath, output_path=None):
         paths = self.load_dir(dirpath)
         for path in paths:
             self.load_jsonlines(path)
@@ -72,7 +72,11 @@ class DomainSummarizer(object):
         # currently focus size
         ans = {k:v[DS_DD_SIZE] for (k, v) in self.summary.iteritems()}
 
-        print json.dumps(ans, indent=4)
+        if output_path:
+            with open(output_path, 'wb') as file_handler:
+                file_handler.write(json.dumps(ans, indent=4))
+        else:
+            print json.dumps(ans, indent=4)
         return ans
 
 if __name__ == '__main__':
