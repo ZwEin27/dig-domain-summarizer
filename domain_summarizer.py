@@ -2,13 +2,40 @@
 import os
 import json
 
+
+######################################################################
+#   Constant
+######################################################################
+
+DS_DD_NAME = 'name'
+DS_DD_SIZE = 'size'
+DS_DD_FREQ = 'freq'
+
+######################################################################
+#   Main Script
+######################################################################
+
 class DomainSummarizer(object):
 
     def __init__(self):
-        pass
+        self.summary = {}
+
+    def __init_domain_data(self, domain_name):
+        domain = {}
+        domain.setdefault(DS_DD_NAME, domain_name)
+        domain.setdefault(DS_DD_SIZE, 0)
+        domain.setdefault(DS_DD_FREQ, 0)
+        self.summary.setdefault(filename, {})
+
 
     def load_jsonlines(self, filepath):
-        pass
+        filename = filepath.split(os.path.sep)[-1]
+        
+        with open(filepath, 'rb') as file_handler:
+            for line in file_handler:
+                line = line.strip()
+                self.summary[filename]
+
 
     def load_dir(self, dirpath):
         paths = []
@@ -28,6 +55,6 @@ class DomainSummarizer(object):
 if __name__ == '__main__':
     ds = DomainSummarizer()
 
-    dirpath = '/Users/ZwEin/job_works/StudentWork_USC-ISI/projects/dig-data/sample-datasets/escorts/sipsap/clusters/cluster001'
+    dirpath = '/Users/ZwEin/job_works/StudentWork_USC-ISI/projects/domain-summarizer/tests/data'
     ds.run(dirpath)
 
