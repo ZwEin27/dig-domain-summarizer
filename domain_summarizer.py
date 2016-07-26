@@ -1,4 +1,10 @@
 
+"""
+python domain_summarizer.py -d <DOMAINS_DIR> -o <OUTPUT_FILE>
+
+"""
+
+
 import os
 import json
 
@@ -48,6 +54,7 @@ class DomainSummarizer(object):
 
     def load_jsonlines(self, filepath):
         domain_name = '.'.join(filepath.split(os.path.sep)[-1].split('.')[:-1])
+        print 'process domain:', domain_name
         self.init_domain_data(domain_name)
         with open(filepath, 'rb') as file_handler:
             for line in file_handler:
